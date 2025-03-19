@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kuki_proyecto/src/registro.dart';
+import 'package:kuki_proyecto/src/informacion_personal.dart';
 
 void main() {
   runApp(const MainApp());
@@ -9,18 +11,24 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Column(
-            children: [
-              Text("data"),
-              Text("data"),
-              Text("data"),
-              Text("data"),
-              Text("data"),
-            ],
-          ),
+    return MaterialApp(home: HomeScreen());
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Bienvenido')),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Registro()),
+            );
+          },
+          child: Text('Ir al Registro'),
         ),
       ),
     );
