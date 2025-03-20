@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
+import 'package:kuki_proyecto/src/menu_principal.dart';
 
 class InformacionPersonal extends StatefulWidget {
   const InformacionPersonal({Key? key}) : super(key: key);
@@ -11,9 +12,10 @@ class InformacionPersonal extends StatefulWidget {
 }
 
 class _InformacionPersonalState extends State<InformacionPersonal> {
-  String? selectedSector; // Inicializado como null por defecto
-  String? selectedFile; // Inicializado como null por defecto
-  File? profileImage; // Archivo para la foto de perfil
+  String? selectedSector;
+  String? selectedFile;
+  File? profileImage;
+  String? selectedUserType = 'COMPRADOR';
 
   Future<void> _pickProfileImage() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -23,6 +25,17 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
       setState(() {
         profileImage = File(result.files.single.path!);
       });
+    }
+  }
+
+  void _guardarInformacion() {
+    if (selectedUserType == 'COMPRADOR') {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const MenuPrincipal()),
+      );
+    } else {
+      // Aquí se podrá agregar la navegación para el vendedor más adelante
     }
   }
 
@@ -116,7 +129,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
               DropdownButtonFormField<String>(
                 value: selectedSector,
                 items:
-                    ['GANADERO', 'PESQUERO', 'CONTRUCCION', 'AGRICULTURA']
+                    ['GANADERO', 'PESQUERO', 'CONSTRUCCIÓN', 'AGRICULTURA']
                         .map(
                           (sector) => DropdownMenuItem(
                             value: sector,
@@ -131,29 +144,25 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
                 },
                 decoration: InputDecoration(border: OutlineInputBorder()),
               ),
-
               SizedBox(height: 10),
               Text('TIPO DE USUARIO'),
               SizedBox(height: 10),
               DropdownButtonFormField<String>(
-                value: selectedSector,
+                value: selectedUserType,
                 items:
                     ['COMPRADOR', 'VENDEDOR']
                         .map(
-                          (sector) => DropdownMenuItem(
-                            value: sector,
-                            child: Text(sector),
-                          ),
+                          (type) =>
+                              DropdownMenuItem(value: type, child: Text(type)),
                         )
                         .toList(),
                 onChanged: (value) {
                   setState(() {
-                    selectedSector = value;
+                    selectedUserType = value ?? 'COMPRADOR';
                   });
                 },
                 decoration: InputDecoration(border: OutlineInputBorder()),
               ),
-
               SizedBox(height: 10),
               Text('EMPRESA'),
               SizedBox(height: 5),
@@ -189,9 +198,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
               SizedBox(height: 20),
               Center(
                 child: ElevatedButton(
-                  onPressed: () {
-                    // Lógica para guardar la información personal
-                  },
+                  onPressed: _guardarInformacion,
                   child: Text('Guardar'),
                 ),
               ),
