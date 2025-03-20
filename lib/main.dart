@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kuki_proyecto/src/agregar_a_venta.dart';
 import 'package:kuki_proyecto/src/busqueda_agricultor.dart';
 import 'package:kuki_proyecto/src/busqueda_construccion.dart';
 import 'package:kuki_proyecto/src/busqueda_ganadera.dart';
@@ -43,9 +44,7 @@ class HomeScreen extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => const TarjetaVisualizacion(),
-              ),
+              MaterialPageRoute(builder: (context) => const AgregarAVenta()),
             );
           },
           child: Text('Ir al Menu Principal'),
