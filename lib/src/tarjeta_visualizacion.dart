@@ -8,36 +8,36 @@ class TarjetaVisualizacion extends StatefulWidget {
 }
 
 class _TarjetaVisualizacion extends State<TarjetaVisualizacion> {
+  final TextEditingController _kilosController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center, // Centra el título
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                right: 130,
+                right: 110,
                 left: 80,
                 bottom: 2,
                 top: 2,
               ),
-              child: Image.asset(
-                'assets/images/Logito2.png', // Asegúrate de que esta imagen exista en tu carpeta assets
-                height: 60,
-              ),
+              child: Image.asset('assets/images/Logito2.png', height: 60),
             ),
             SizedBox(width: 10),
           ],
         ),
         centerTitle: true,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center, // Centra los elementos
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Campo de búsqueda
             TextField(
               decoration: InputDecoration(
                 hintText: 'Buscar',
@@ -49,35 +49,83 @@ class _TarjetaVisualizacion extends State<TarjetaVisualizacion> {
                 fillColor: Colors.grey[200],
               ),
             ),
-            SizedBox(height: 15),
-            // Recomendaciones
+            SizedBox(height: 20),
+            // Título del producto
             Text(
-              'Nombre',
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center, // Centra el texto
+              'Concha marina',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 15),
-            Container(
-              height: 300,
-              width: 300,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: Image.asset('assets/images/conchas.jpeg'),
+            SizedBox(height: 10),
+            Image.asset("assets/images/conchas.jpeg"),
+            SizedBox(height: 10),
+            Text(
+              'Sector: Pesca',
+              style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
-            SizedBox(height: 15),
-            Text("Sector"),
-            Text("Precio"),
+            Text(
+              '0.45 Pesos por kilo',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            // Cantidad y TextField
+            Text(
+              'Cantidad de kilos',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10),
             TextField(
+              controller: _kilosController,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                hintText: 'Cantidad en kilos',
-                prefixIcon: Icon(Icons.countertops),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                filled: true,
-                fillColor: Colors.grey[200],
+                border: OutlineInputBorder(),
+                hintText: 'Ingrese la cantidad de kilos',
               ),
+            ),
+            SizedBox(height: 20),
+            // Botones
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Acción para "Comprar ahora"
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                    ),
+                    child: Text('Comprar ahora'),
+                  ),
+                ),
+                SizedBox(width: 10),
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () {
+                      // Acción para "Añadir al carrito"
+                    },
+                    child: Text('Añadir al carrito'),
+                    style: OutlinedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      side: BorderSide(color: Colors.green),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            // Información de envío y descripción
+            Text(
+              'El envío está disponible a partir de los 50 kilos',
+              style: TextStyle(fontSize: 14, color: Colors.grey),
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Descripción',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10),
+            Text(
+              'Media tonelada de concha marina disponible para la venta, tenemos para enviar a todo peñasco y nuestro horario de entrega es de 10 am a 5pm.',
+              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
             ),
           ],
         ),
@@ -85,29 +133,29 @@ class _TarjetaVisualizacion extends State<TarjetaVisualizacion> {
       bottomNavigationBar: BottomAppBar(
         color: Colors.green,
         child: Container(
-          height: 40, // Ajusta la altura de la barra inferior
+          height: 40,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
                 icon: Icon(Icons.home, color: Colors.white),
-                iconSize: 30, // Tamaño del ícono
+                iconSize: 30,
                 onPressed: () {},
               ),
               IconButton(
                 icon: Icon(Icons.shopping_cart, color: Colors.white),
-                iconSize: 30, // Tamaño del ícono
+                iconSize: 30,
                 onPressed: () {},
               ),
               IconButton(
                 icon: Icon(Icons.settings, color: Colors.white),
-                iconSize: 30, // Tamaño del ícono
+                iconSize: 30,
                 onPressed: () {},
               ),
               IconButton(
                 icon: Image.asset(
-                  'assets/images/birrete.png', // Asegúrate de que esta imagen exista en tu carpeta assets
+                  'assets/images/birrete.png',
                   width: 30,
                   height: 30,
                 ),
@@ -116,123 +164,6 @@ class _TarjetaVisualizacion extends State<TarjetaVisualizacion> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildSectorButton(String imagePath, String label) {
-    return Column(
-      children: [
-        IconButton(
-          icon: ClipRRect(
-            borderRadius: BorderRadius.circular(12.0),
-            child: Image.asset(
-              imagePath,
-              width: 65,
-              height: 65,
-              fit: BoxFit.cover,
-            ),
-          ),
-          iconSize: 65,
-          onPressed: () {},
-        ),
-        SizedBox(height: 5),
-        Text(
-          label,
-          style: TextStyle(fontSize: 12),
-          textAlign: TextAlign.center,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildRecommendationButton(String title, String description) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        width: 200,
-        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 1,
-              blurRadius: 4,
-              offset: Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.center, // Centra el contenido
-            children: [
-              Text(
-                title,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 5),
-              Text(
-                description,
-                style: TextStyle(fontSize: 14, color: Colors.grey[600]),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildProductCard(
-    String name,
-    String description,
-    String price,
-    String sectorIconPath,
-    String productImagePath,
-  ) {
-    return Card(
-      margin: EdgeInsets.symmetric(vertical: 8.0),
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: () {},
-            child: Image.asset(
-              productImagePath,
-              width: double.infinity,
-              height: 120,
-              fit: BoxFit.cover,
-            ),
-          ),
-          ListTile(
-            contentPadding: EdgeInsets.all(12.0),
-            title: Text(
-              name,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              textAlign: TextAlign.center,
-            ),
-            subtitle: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.center, // Centra el contenido
-              children: [
-                SizedBox(height: 5),
-                Text(description, style: TextStyle(fontSize: 14)),
-                SizedBox(height: 5),
-                Text(
-                  price,
-                  style: TextStyle(fontSize: 14, color: Colors.green),
-                ),
-              ],
-            ),
-            trailing: Image.asset(sectorIconPath, width: 24, height: 24),
-          ),
-        ],
       ),
     );
   }
