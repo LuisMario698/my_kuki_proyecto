@@ -7,6 +7,7 @@ import 'package:kuki_proyecto/src/busqueda_pesquero.dart';
 import 'package:kuki_proyecto/src/menu_principal.dart';
 import 'package:kuki_proyecto/src/registro.dart';
 import 'package:kuki_proyecto/src/informacion_personal.dart';
+import 'package:kuki_proyecto/src/tarjeta_visualizacion.dart';
 
 void main() {
   runApp(const MainApp());
@@ -43,7 +44,7 @@ class HomeScreen extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const BusquedaManufactura(),
+                builder: (context) => const TarjetaVisualizacion(),
               ),
             );
           },
