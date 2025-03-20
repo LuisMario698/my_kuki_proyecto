@@ -3,6 +3,7 @@ import 'package:kuki_proyecto/src/menu_principal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:kuki_proyecto/src/login.dart';
 import 'package:kuki_proyecto/src/menu_perfil.dart';
+import 'package:kuki_proyecto/src/cursos.dart';
 
 class Carrito extends StatefulWidget {
   const Carrito({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class Carrito extends StatefulWidget {
 }
 
 class _CarritoState extends State<Carrito> {
-  Future<void> _logout() async {
+  Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
     Navigator.pushReplacement(
@@ -112,13 +113,29 @@ class _CarritoState extends State<Carrito> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: const Text('Carrito', style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: false,
+        backgroundColor: Colors.green,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 130,
+                left: 80,
+                bottom: 2,
+                top: 2,
+              ),
+              child: Image.asset(
+                'assets/images/Logito2.png', // Ensure this image exists in your assets folder
+                height: 60,
+              ),
+            ),
+            const SizedBox(width: 10),
+          ],
+        ),
+        centerTitle: true,
       ),
+      backgroundColor: Colors.grey[200],
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -170,7 +187,12 @@ class _CarritoState extends State<Carrito> {
                   width: 30,
                   height: 30,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Cursos()),
+                  );
+                },
               ),
             ],
           ),

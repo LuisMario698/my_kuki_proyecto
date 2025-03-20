@@ -31,5 +31,5 @@ flutter:
     - assets/images/madera.jpeg
     - assets/images/plasticos.jpeg
     - assets/images/conchas.jpeg
-    - assets/images/birrete.png
+    - assets/images/birrete.png # Ensure this file exists
     - assets/images/panufacturero.png

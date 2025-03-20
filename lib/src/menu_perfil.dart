@@ -3,6 +3,7 @@ import 'package:kuki_proyecto/src/menu_principal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:kuki_proyecto/src/login.dart'; // Import LoginScreen
 import 'package:kuki_proyecto/src/carrito.dart'; // Import Carrito
+import 'package:kuki_proyecto/src/cursos.dart';
 
 class MenuPerfil extends StatefulWidget {
   const MenuPerfil({Key? key}) : super(key: key);
@@ -129,11 +130,18 @@ class _MenuPerfilState extends State<MenuPerfil> {
               ),
               IconButton(
                 icon: Image.asset(
-                  'assets/images/birrete.png',
+                  'assets/images/birrete.png', // Ensure this image exists in your assets folder
                   width: 30,
                   height: 30,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Cursos(),
+                    ), // Navigate to Cursos
+                  );
+                },
               ),
             ],
           ),

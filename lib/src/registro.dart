@@ -13,76 +13,62 @@ class _RegistroState extends State<Registro> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Crea una nueva cuenta')),
-      body: Column(
-        children: [
-          // Parte superior: Logo de la empresa
-          Expanded(
-            flex: 2,
-            child: Center(
-              child: Image.asset(
-                'assets/images/Logito.png', // Asegúrate de tener un archivo de logo en la carpeta assets
-                width: 150,
-                height: 150,
+      body: SingleChildScrollView(
+        // <-- Hace la pantalla desplazable
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 20),
+              Center(
+                child: Image.asset(
+                  'assets/images/Logito.png',
+                  width: 150,
+                  height: 150,
+                ),
               ),
-            ),
-          ),
-          // Parte inferior: Formulario de registro
-          Expanded(
-            flex: 3,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(height: 20),
-                  Center(child: Text('USUARIO')),
-                  SizedBox(height: 5),
-                  TextField(
-                    decoration: InputDecoration(border: OutlineInputBorder()),
-                  ),
-                  SizedBox(height: 10),
-                  Center(child: Text('CORREO ELECTRÓNICO')),
-                  SizedBox(height: 5),
-                  TextField(
-                    decoration: InputDecoration(border: OutlineInputBorder()),
-                  ),
-                  SizedBox(height: 10),
-                  Center(child: Text('CONTRASEÑA')),
-                  SizedBox(height: 5),
-                  TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(border: OutlineInputBorder()),
-                  ),
-                  SizedBox(height: 10),
-                  Center(child: Text('CONFIRMAR CONTRASEÑA')),
-                  SizedBox(height: 5),
-                  TextField(
-                    decoration: InputDecoration(border: OutlineInputBorder()),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    '¿Ya te registraste? Inicia sesión aquí.',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const InformacionPersonal(),
-                        ),
-                      );
-                    },
-
-                    child: Text('Continuar'),
-                  ),
-                ],
+              SizedBox(height: 20),
+              _buildTextField("USUARIO"),
+              _buildTextField("CORREO ELECTRÓNICO"),
+              _buildTextField("CONTRASEÑA", obscureText: true),
+              _buildTextField("CONFIRMAR CONTRASEÑA", obscureText: true),
+              SizedBox(height: 20),
+              Text(
+                '¿Ya te registraste? Inicia sesión aquí.',
+                style: TextStyle(color: Colors.grey),
               ),
-            ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const InformacionPersonal(),
+                    ),
+                  );
+                },
+                child: Text('Continuar'),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildTextField(String label, {bool obscureText = false}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label),
+        SizedBox(height: 5),
+        TextField(
+          obscureText: obscureText,
+          decoration: InputDecoration(border: OutlineInputBorder()),
+        ),
+        SizedBox(height: 10),
+      ],
     );
   }
 }

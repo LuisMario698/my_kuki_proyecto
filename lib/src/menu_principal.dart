@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kuki_proyecto/src/menu_perfil.dart';
 import 'package:kuki_proyecto/src/carrito.dart';
+import 'package:kuki_proyecto/src/cursos.dart';
 
 class MenuPrincipal extends StatefulWidget {
   const MenuPrincipal({Key? key}) : super(key: key);
@@ -181,11 +182,18 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
 
               IconButton(
                 icon: Image.asset(
-                  'assets/images/birrete.png', // Asegúrate de que esta imagen exista en tu carpeta assets
+                  'assets/images/birrete.png', // Ensure this image exists in your assets folder
                   width: 30,
                   height: 30,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Cursos(),
+                    ), // Navigate to Cursos
+                  );
+                },
               ),
             ],
           ),
