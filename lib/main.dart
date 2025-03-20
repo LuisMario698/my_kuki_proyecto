@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kuki_proyecto/src/busqueda_ganadera.dart';
+import 'package:kuki_proyecto/src/busqueda_pesquero.dart';
 import 'package:kuki_proyecto/src/menu_principal.dart';
 import 'package:kuki_proyecto/src/registro.dart';
 import 'package:kuki_proyecto/src/informacion_personal.dart';
@@ -38,7 +39,7 @@ class HomeScreen extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const BusquedaGanadera()),
+              MaterialPageRoute(builder: (context) => const BusquedaPesquero()),
             );
           },
           child: Text('Ir al Menu Principal'),
