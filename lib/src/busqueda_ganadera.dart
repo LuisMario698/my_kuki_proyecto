@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class MenuPrincipal extends StatefulWidget {
-  const MenuPrincipal({Key? key}) : super(key: key);
+class BusquedaGanadera extends StatefulWidget {
+  const BusquedaGanadera({Key? key}) : super(key: key);
 
   @override
-  _MenuPrincipalState createState() => _MenuPrincipalState();
+  BusquedaGanaderaState createState() => BusquedaGanaderaState();
 }
 
-class _MenuPrincipalState extends State<MenuPrincipal> {
+class BusquedaGanaderaState extends State<BusquedaGanadera> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +18,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                right: 130,
+                right: 80,
                 left: 80,
                 bottom: 2,
                 top: 2,
@@ -32,6 +32,8 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
           ],
         ),
         centerTitle: true,
+        actionsPadding: const EdgeInsets.only(right: 20),
+        actions: [Image.asset("assets/images/ganadero.png", height: 50)],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -49,73 +51,31 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                 fillColor: Colors.grey[200],
               ),
             ),
-            SizedBox(height: 15),
-            Text(
-              'Sectores',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center, // Centra el texto
-            ),
-            SizedBox(height: 8),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment:
-                    CrossAxisAlignment.center, // Centra los sectores
-                children: [
-                  _buildSectorButton('assets/images/ganadero.png', 'Ganadero'),
-                  _buildSectorButton('assets/images/pesquero.png', 'Pesquero'),
-                  _buildSectorButton(
-                    'assets/images/construccion.png',
-                    'Construcción',
-                  ),
-                  _buildSectorButton(
-                    'assets/images/agricultor.png',
-                    'Agricola',
-                  ),
-                  _buildSectorButton(
-                    'assets/images/panufacturero.png',
-                    'Panufacturero',
-                  ),
-                ],
-              ),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    // Acción para filtrar por precio
+                  },
+                  child: Text('Tipo'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Acción para filtrar por precio
+                  },
+                  child: Text('Precio'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Acción para filtrar por cercanía
+                  },
+                  child: Text('Cercanía'),
+                ),
+              ],
             ),
             SizedBox(height: 15),
-            // Recomendaciones
-            Text(
-              'Recomendaciones',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center, // Centra el texto
-            ),
-            SizedBox(height: 8),
-            SizedBox(
-              height: 108, // Ajusta la altura para mejorar la visibilidad
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  _buildRecommendationButton(
-                    'Concha marina',
-                    'Media tonelada de concha marina',
-                  ),
-                  _buildRecommendationButton(
-                    'Residuos de madera',
-                    '500 kg de madera reciclada',
-                  ),
-                  _buildRecommendationButton(
-                    'Plástico reciclado',
-                    '300 kg de plástico reciclado',
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 15),
-            // Productos con scroll vertical
-            Text(
-              'Productos',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center, // Centra el texto
-            ),
-            SizedBox(height: 8),
             Expanded(
               child: ListView(
                 children: [
