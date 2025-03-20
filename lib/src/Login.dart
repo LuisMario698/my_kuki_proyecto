@@ -73,24 +73,31 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment:
-                  CrossAxisAlignment.start, // Mantiene la alineación original
-              children: [
-                const Text(
-                  "LOGIN",
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 8),
-
-                // Enlace "¿No tienes cuenta?"
-                Row(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset('assets/images/Logito2.png', height: 80),
+              const SizedBox(height: 10),
+              const Text(
+                'Usuario',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              Form(
+                key: _formKey,
+                child: Column(
                   children: [
-                    const Text("Don't have an account?"),
-                    const SizedBox(width: 5),
+                    _buildInputField(
+                      'Usuario',
+                      false,
+                      (value) => _email = value,
+                    ),
+                    _buildInputField(
+                      'Contraseña',
+                      true,
+                      (value) => _password = value,
+                    ),
+                    const SizedBox(height: 10),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -101,95 +108,65 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       },
                       child: const Text(
-                        "Sign Up Here",
+                        '¿Aún no tienes una cuenta? Crear cuenta',
                         style: TextStyle(
                           color: Colors.blueAccent,
                           decoration: TextDecoration.underline,
                         ),
                       ),
                     ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: _isLoading ? null : _submit,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 14,
+                          horizontal: 50,
+                        ),
+                      ),
+                      child:
+                          _isLoading
+                              ? const CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                              : const Text(
+                                'Iniciar sesión',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                    ),
                   ],
                 ),
-
-                const SizedBox(height: 40),
-
-                // Campo de Email
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'Email Address'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) => _email = value,
-                ),
-                const SizedBox(height: 20),
-
-                // Campo de Password
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'Password'),
-                  obscureText: true,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) => _password = value,
-                ),
-                const SizedBox(height: 10),
-
-                // "Forgot Password?"
-                GestureDetector(
-                  onTap: () {
-                    // Acción para "Forgot password?"
-                  },
-                  child: const Text(
-                    "Forgot your password?",
-                    style: TextStyle(
-                      color: Colors.blueAccent,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 30),
-
-                // Botón de Login
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: _isLoading ? null : _submit,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                    ),
-                    child:
-                        _isLoading
-                            ? const CircularProgressIndicator(
-                              color: Colors.white,
-                            )
-                            : const Text(
-                              "Log In",
-                              style: TextStyle(fontSize: 16),
-                            ),
-                  ),
-                ),
-
-                const SizedBox(height: 60),
-
-                // Footer con copyrights
-                Center(
-                  child: Text(
-                    "© 2023 YourCompany, Inc. All rights reserved.",
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildInputField(
+    String hint,
+    bool isPassword,
+    Function(String?) onSaved,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: TextFormField(
+        obscureText: isPassword,
+        decoration: InputDecoration(
+          labelText: hint,
+          filled: true,
+          fillColor: Color(0xFFB5C18E),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
+        ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Por favor ingrese su $hint';
+          }
+          return null;
+        },
+        onSaved: onSaved,
       ),
     );
   }

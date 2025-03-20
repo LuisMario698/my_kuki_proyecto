@@ -13,7 +13,7 @@ class MenuPerfil extends StatefulWidget {
 }
 
 class _MenuPerfilState extends State<MenuPerfil> {
-  String? userName = "John Doe";
+  String? userName = "John Doe\n⭐⭐⭐⭐⭐";
   String? profileImage = "assets/images/perfil1.jpeg";
 
   Future<void> _logout() async {
@@ -81,7 +81,34 @@ class _MenuPerfilState extends State<MenuPerfil> {
             _buildProfileOption(Icons.bookmark, "Orders"),
             _buildProfileOption(Icons.favorite, "Your favourites"),
             _buildProfileOption(Icons.account_balance_wallet, "Wallet"),
-            _buildProfileOption(Icons.help, "Help"),
+            _buildProfileOption(Icons.help, "Foro"),
+            const SizedBox(height: 20),
+            Text(
+              "Reseñas",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            Expanded(
+              child: ListView(
+                children: [
+                  _buildReviewCard(
+                    "Juan Pérez",
+                    "Excelente comprador, muy amable y puntual.",
+                    5,
+                  ),
+                  _buildReviewCard(
+                    "María López",
+                    "Buena comunicación, pero tardó un poco en confirmar.",
+                    4,
+                  ),
+                  _buildReviewCard(
+                    "Carlos García",
+                    "Todo perfecto, muy recomendado.",
+                    5,
+                  ),
+                ],
+              ),
+            ),
             const SizedBox(height: 20),
             GestureDetector(
               onTap: _logout, // Call the updated _logout method
@@ -126,7 +153,12 @@ class _MenuPerfilState extends State<MenuPerfil> {
               IconButton(
                 icon: Icon(Icons.settings, color: Colors.white),
                 iconSize: 30,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MenuPerfil()),
+                  );
+                },
               ),
               IconButton(
                 icon: Image.asset(
@@ -165,6 +197,35 @@ class _MenuPerfilState extends State<MenuPerfil> {
             Icon(icon, color: Colors.black),
             SizedBox(width: 10),
             Text(text, style: TextStyle(fontSize: 16, color: Colors.black)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildReviewCard(String reviewer, String comment, int rating) {
+    return Card(
+      margin: EdgeInsets.symmetric(vertical: 8.0),
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      child: ListTile(
+        contentPadding: EdgeInsets.all(12.0),
+        title: Text(
+          reviewer,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 5),
+            Text(comment, style: TextStyle(fontSize: 14)),
+            SizedBox(height: 5),
+            Row(
+              children: List.generate(
+                rating,
+                (index) => Icon(Icons.star, color: Colors.orange, size: 16),
+              ),
+            ),
           ],
         ),
       ),

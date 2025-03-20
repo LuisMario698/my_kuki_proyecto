@@ -13,7 +13,7 @@ class PerfilVendedor extends StatefulWidget {
 }
 
 class _PerfilVendedorState extends State<PerfilVendedor> {
-  String? userName = "Vendedor Ejemplo";
+  String? userName = "Vendedor Ejemplo\n⭐⭐⭐⭐⭐";
   String? profileImage = "assets/images/perfil1.jpeg";
 
   Future<void> _logout() async {
@@ -65,6 +65,33 @@ class _PerfilVendedorState extends State<PerfilVendedor> {
             _buildProfileOption(Icons.bookmark, "Mis Ventas"),
             _buildProfileOption(Icons.favorite, "Productos Favoritos"),
             _buildProfileOption(Icons.help, "Ayuda"),
+            const SizedBox(height: 20),
+            Text(
+              "Reseñas",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            Expanded(
+              child: ListView(
+                children: [
+                  _buildReviewCard(
+                    "Juan Pérez",
+                    "Excelente vendedor, muy atento y rápido en la entrega.",
+                    5,
+                  ),
+                  _buildReviewCard(
+                    "María López",
+                    "Buena calidad de productos, pero el envío tardó un poco.",
+                    4,
+                  ),
+                  _buildReviewCard(
+                    "Carlos García",
+                    "Todo perfecto, muy recomendado.",
+                    5,
+                  ),
+                ],
+              ),
+            ),
             const SizedBox(height: 20),
             GestureDetector(
               onTap: _logout,
@@ -152,6 +179,35 @@ class _PerfilVendedorState extends State<PerfilVendedor> {
             Icon(icon, color: Colors.black),
             SizedBox(width: 10),
             Text(text, style: TextStyle(fontSize: 16, color: Colors.black)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildReviewCard(String reviewer, String comment, int rating) {
+    return Card(
+      margin: EdgeInsets.symmetric(vertical: 8.0),
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      child: ListTile(
+        contentPadding: EdgeInsets.all(12.0),
+        title: Text(
+          reviewer,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 5),
+            Text(comment, style: TextStyle(fontSize: 14)),
+            SizedBox(height: 5),
+            Row(
+              children: List.generate(
+                rating,
+                (index) => Icon(Icons.star, color: Colors.orange, size: 16),
+              ),
+            ),
           ],
         ),
       ),
