@@ -80,25 +80,25 @@ class BusquedaGanaderaState extends State<BusquedaGanadera> {
               child: ListView(
                 children: [
                   _buildProductCard(
-                    'Concha marina',
-                    'Media tonelada de concha marina',
+                    'Composta de ganado',
+                    'Media tonelada de composta de ganado',
                     '\$500',
-                    'assets/images/pesquero.png',
-                    'assets/images/conchas.jpeg',
+                    'assets/images/ganadero.png',
+                    'assets/images/composta.jpg',
                   ),
                   _buildProductCard(
                     'Residuos de madera',
                     '500 kg de madera reciclada',
                     '\$300',
-                    'assets/images/construccion.png',
+                    'assets/images/ganadero.png',
                     'assets/images/madera.jpeg',
                   ),
                   _buildProductCard(
-                    'Plástico reciclado',
-                    '300 kg de plástico reciclado',
+                    'Alpaca seca',
+                    '300 kg de alpaca seca',
                     '\$200',
                     'assets/images/ganadero.png',
-                    'assets/images/plasticos.jpeg',
+                    'assets/images/alpaca.jpg',
                   ),
                 ],
               ),

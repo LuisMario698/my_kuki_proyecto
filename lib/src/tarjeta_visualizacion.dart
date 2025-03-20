@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kuki_proyecto/src/carrito.dart';
+import 'package:kuki_proyecto/src/cursos.dart';
+import 'package:kuki_proyecto/src/menu_principal.dart';
 
 class TarjetaVisualizacion extends StatefulWidget {
   const TarjetaVisualizacion({Key? key}) : super(key: key);
@@ -141,12 +144,24 @@ class _TarjetaVisualizacion extends State<TarjetaVisualizacion> {
               IconButton(
                 icon: Icon(Icons.home, color: Colors.white),
                 iconSize: 30,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MenuPrincipal(),
+                    ),
+                  );
+                },
               ),
               IconButton(
                 icon: Icon(Icons.shopping_cart, color: Colors.white),
                 iconSize: 30,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Carrito()),
+                  );
+                },
               ),
               IconButton(
                 icon: Icon(Icons.settings, color: Colors.white),
@@ -155,11 +170,18 @@ class _TarjetaVisualizacion extends State<TarjetaVisualizacion> {
               ),
               IconButton(
                 icon: Image.asset(
-                  'assets/images/birrete.png',
+                  'assets/images/birrete.png', // Ensure this image exists in your assets folder
                   width: 30,
                   height: 30,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Cursos(),
+                    ), // Navigate to Cursos
+                  );
+                },
               ),
             ],
           ),

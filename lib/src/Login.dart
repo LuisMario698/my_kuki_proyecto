@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kuki_proyecto/src/menu_principal.dart';
 import 'package:kuki_proyecto/src/registro.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:kuki_proyecto/src/menu_vendedor.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -41,10 +42,17 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() => _isLoading = true);
         await _saveSession(user['email']!, user['role']!);
 
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const MenuPrincipal()),
-        );
+        if (user['role'] == 'Vendedor') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const MenuVentas()),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const MenuPrincipal()),
+          );
+        }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Correo o contraseña incorrectos')),

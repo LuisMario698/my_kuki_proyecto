@@ -1,4 +1,12 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:kuki_proyecto/src/carrito.dart';
+import 'package:kuki_proyecto/src/menu_perfil.dart';
+import 'package:kuki_proyecto/src/menu_principal.dart';
+import 'package:kuki_proyecto/src/menu_vendedor.dart'; // Import necesario para validadores
 
 class AgregarAVenta extends StatefulWidget {
   const AgregarAVenta({Key? key}) : super(key: key);
@@ -8,6 +16,35 @@ class AgregarAVenta extends StatefulWidget {
 }
 
 class AgregarAVentaState extends State<AgregarAVenta> {
+  String? selectedSector; // Inicializado como null por defecto
+  String? selectedFile; // Inicializado como null por defecto
+  File? profileImage; // Archivo para la imagen seleccionada
+
+  final TextEditingController _nombreController = TextEditingController();
+  final TextEditingController _descripcionController = TextEditingController();
+  final TextEditingController _precioController = TextEditingController();
+  final TextEditingController _cantidadController = TextEditingController();
+
+  Future<void> _pickProfileImage() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+    );
+    if (result != null) {
+      setState(() {
+        profileImage = File(result.files.single.path!);
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _nombreController.dispose();
+    _descripcionController.dispose();
+    _precioController.dispose();
+    _cantidadController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,8 +69,6 @@ class AgregarAVentaState extends State<AgregarAVenta> {
           ],
         ),
         centerTitle: true,
-        actionsPadding: const EdgeInsets.only(right: 20),
-        actions: [Image.asset("assets/images/ganadero.png", height: 50)],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -44,56 +79,133 @@ class AgregarAVentaState extends State<AgregarAVenta> {
               "Agregar Producto para venta",
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             ),
+            SizedBox(height: 15),
+            TextField(
+              controller: _nombreController,
+              decoration: InputDecoration(
+                labelText: 'Nombre del producto',
+                border: OutlineInputBorder(),
+              ),
+            ),
             SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    // Acción para filtrar por precio
-                  },
-                  child: Text('Tipo'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    // Acción para filtrar por precio
-                  },
-                  child: Text('Precio'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    // Acción para filtrar por cercanía
-                  },
-                  child: Text('Cercanía'),
-                ),
-              ],
+            TextField(
+              controller: _descripcionController,
+              decoration: InputDecoration(
+                labelText: 'Descripción',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 10),
+            TextField(
+              controller: _precioController,
+              decoration: InputDecoration(
+                labelText: 'Precio',
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            ),
+            SizedBox(height: 10),
+            TextField(
+              controller: _cantidadController,
+              decoration: InputDecoration(
+                labelText: 'Cantidad',
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            ),
+            SizedBox(height: 10),
+            DropdownButtonFormField<String>(
+              value: selectedSector,
+              items:
+                  [
+                        'Ganadero',
+                        'Pesquero',
+                        'Construcción',
+                        'Agricola',
+                        'Manufacturero',
+                      ]
+                      .map(
+                        (category) => DropdownMenuItem(
+                          value: category,
+                          child: Text(category),
+                        ),
+                      )
+                      .toList(),
+              onChanged: (value) {
+                setState(() {
+                  selectedSector = value;
+                });
+              },
+              decoration: InputDecoration(
+                labelText: 'Categoría',
+                border: OutlineInputBorder(),
+              ),
             ),
             SizedBox(height: 15),
-            Expanded(
-              child: ListView(
-                children: [
-                  _buildProductCard(
-                    'Concha marina',
-                    'Media tonelada de concha marina',
-                    '\$500',
-                    'assets/images/pesquero.png',
-                    'assets/images/conchas.jpeg',
-                  ),
-                  _buildProductCard(
-                    'Residuos de madera',
-                    '500 kg de madera reciclada',
-                    '\$300',
-                    'assets/images/construccion.png',
-                    'assets/images/madera.jpeg',
-                  ),
-                  _buildProductCard(
-                    'Plástico reciclado',
-                    '300 kg de plástico reciclado',
-                    '\$200',
-                    'assets/images/ganadero.png',
-                    'assets/images/plasticos.jpeg',
-                  ),
-                ],
+            Center(
+              child: GestureDetector(
+                onTap: _pickProfileImage,
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundImage:
+                      profileImage != null
+                          ? FileImage(profileImage!)
+                          : AssetImage('assets/images/perfil1.jpeg')
+                              as ImageProvider,
+                  child:
+                      profileImage == null
+                          ? Icon(
+                            Icons.camera_alt,
+                            size: 30,
+                            color: Colors.white,
+                          )
+                          : null,
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                if (_nombreController.text.isEmpty ||
+                    _descripcionController.text.isEmpty ||
+                    _precioController.text.isEmpty ||
+                    _cantidadController.text.isEmpty ||
+                    selectedSector == null ||
+                    profileImage == null) {
+                  // Mostrar mensaje de error si algún campo está vacío
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Por favor, completa todos los campos'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                } else {
+                  // Mostrar mensaje de confirmación
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Producto guardado exitosamente'),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
+
+                  // Limpiar los campos
+                  _nombreController.clear();
+                  _descripcionController.clear();
+                  _precioController.clear();
+                  _cantidadController.clear();
+                  setState(() {
+                    selectedSector = null;
+                    profileImage = null;
+                  });
+                }
+              },
+              child: Text('Guardar Producto'),
+              style: ElevatedButton.styleFrom(
+                iconColor: Colors.green,
+                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                textStyle: TextStyle(fontSize: 16),
               ),
             ),
           ],
@@ -110,25 +222,45 @@ class AgregarAVentaState extends State<AgregarAVenta> {
               IconButton(
                 icon: Icon(Icons.home, color: Colors.white),
                 iconSize: 30, // Tamaño del ícono
-                onPressed: () {},
+                onPressed: () {
+                  MenuPrincipal();
+                },
               ),
               IconButton(
                 icon: Icon(Icons.shopping_cart, color: Colors.white),
                 iconSize: 30, // Tamaño del ícono
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Carrito()),
+                  );
+                },
               ),
               IconButton(
                 icon: Icon(Icons.settings, color: Colors.white),
-                iconSize: 30, // Tamaño del ícono
-                onPressed: () {},
+                iconSize: 30,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MenuPerfil()),
+                  );
+                },
               ),
+
               IconButton(
                 icon: Image.asset(
-                  'assets/images/birrete.png', // Asegúrate de que esta imagen exista en tu carpeta assets
+                  'assets/images/anadir.png', // Ensure this image exists in your assets folder
                   width: 30,
                   height: 30,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MenuVentas(),
+                    ), // Navigate to Cursos
+                  );
+                },
               ),
             ],
           ),

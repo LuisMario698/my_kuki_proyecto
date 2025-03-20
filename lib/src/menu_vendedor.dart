@@ -8,14 +8,14 @@ import 'package:kuki_proyecto/src/carrito.dart';
 import 'package:kuki_proyecto/src/cursos.dart';
 import 'package:kuki_proyecto/src/tarjeta_visualizacion.dart';
 
-class MenuPrincipal extends StatefulWidget {
-  const MenuPrincipal({Key? key}) : super(key: key);
+class MenuVentas extends StatefulWidget {
+  const MenuVentas({Key? key}) : super(key: key);
 
   @override
-  _MenuPrincipalState createState() => _MenuPrincipalState();
+  _MenuVentasState createState() => _MenuVentasState();
 }
 
-class _MenuPrincipalState extends State<MenuPrincipal> {
+class _MenuVentasState extends State<MenuVentas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -257,7 +257,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                 icon: Icon(Icons.home, color: Colors.white),
                 iconSize: 30, // Tamaño del ícono
                 onPressed: () {
-                  MenuPrincipal();
+                  MenuVentas();
                 },
               ),
               IconButton(
