@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kuki_proyecto/src/menu_principal.dart';
 import 'package:kuki_proyecto/src/registro.dart';
 import 'package:kuki_proyecto/src/informacion_personal.dart';
 
@@ -21,14 +22,25 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Bienvenido')),
       body: Center(
+        /*
         child: ElevatedButton(
           onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const Registro()),
             );
-          },
+          }m
           child: Text('Ir al Registro'),
+        ),
+        */
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MenuPrincipal()),
+            );
+          },
+          child: Text('Ir al Menu Principal'),
         ),
       ),
     );

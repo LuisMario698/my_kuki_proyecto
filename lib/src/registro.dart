@@ -20,7 +20,7 @@ class _RegistroState extends State<Registro> {
             flex: 2,
             child: Center(
               child: Image.asset(
-                'assets/images/Funcion2Fig12.png', // Asegúrate de tener un archivo de logo en la carpeta assets
+                'assets/images/Logito.png', // Asegúrate de tener un archivo de logo en la carpeta assets
                 width: 150,
                 height: 150,
               ),
@@ -34,10 +34,6 @@ class _RegistroState extends State<Registro> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    '¿Ya te registraste? Inicia sesión aquí.',
-                    style: TextStyle(color: Colors.grey),
-                  ),
                   SizedBox(height: 20),
                   Center(child: Text('USUARIO')),
                   SizedBox(height: 5),
@@ -64,6 +60,11 @@ class _RegistroState extends State<Registro> {
                     decoration: InputDecoration(border: OutlineInputBorder()),
                   ),
                   SizedBox(height: 20),
+                  Text(
+                    '¿Ya te registraste? Inicia sesión aquí.',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -73,6 +74,7 @@ class _RegistroState extends State<Registro> {
                         ),
                       );
                     },
+
                     child: Text('Continuar'),
                   ),
                 ],
