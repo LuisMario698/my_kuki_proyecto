@@ -40,7 +40,7 @@ class HomeScreen extends StatelessWidget {
               MaterialPageRoute(builder: (context) => const MenuPrincipal()),
             );
           },
-          child: Text('Ir al Menu Principal'),
+          child: Container(child: Text('respaldo')),
         ),
       ),
     );

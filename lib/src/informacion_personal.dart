@@ -29,7 +29,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Información Personal')),
+      appBar: AppBar(title: Text('Información Personal22')),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
