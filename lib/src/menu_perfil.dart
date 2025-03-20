@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kuki_proyecto/src/menu_principal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:kuki_proyecto/src/login.dart'; // Import LoginScreen
+import 'package:kuki_proyecto/src/carrito.dart'; // Import Carrito
 
 class MenuPerfil extends StatefulWidget {
   const MenuPerfil({Key? key}) : super(key: key);
@@ -18,7 +20,9 @@ class _MenuPerfilState extends State<MenuPerfil> {
     await prefs.clear();
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const MenuPrincipal()),
+      MaterialPageRoute(
+        builder: (context) => const LoginScreen(),
+      ), // Navigate to LoginScreen
     );
   }
 
@@ -79,7 +83,7 @@ class _MenuPerfilState extends State<MenuPerfil> {
             _buildProfileOption(Icons.help, "Help"),
             const SizedBox(height: 20),
             GestureDetector(
-              onTap: _logout,
+              onTap: _logout, // Call the updated _logout method
               child: Text(
                 "Sign Out",
                 style: TextStyle(color: Colors.green, fontSize: 16),
@@ -99,12 +103,24 @@ class _MenuPerfilState extends State<MenuPerfil> {
               IconButton(
                 icon: Icon(Icons.home, color: Colors.white),
                 iconSize: 30,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MenuPrincipal(),
+                    ),
+                  );
+                },
               ),
               IconButton(
                 icon: Icon(Icons.shopping_cart, color: Colors.white),
                 iconSize: 30,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Carrito()),
+                  );
+                },
               ),
               IconButton(
                 icon: Icon(Icons.settings, color: Colors.white),

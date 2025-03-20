@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kuki_proyecto/src/menu_perfil.dart';
+import 'package:kuki_proyecto/src/carrito.dart';
 
 class MenuPrincipal extends StatefulWidget {
   const MenuPrincipal({Key? key}) : super(key: key);
@@ -159,13 +161,24 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
               IconButton(
                 icon: Icon(Icons.shopping_cart, color: Colors.white),
                 iconSize: 30, // Tamaño del ícono
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Carrito()),
+                  );
+                },
               ),
               IconButton(
                 icon: Icon(Icons.settings, color: Colors.white),
-                iconSize: 30, // Tamaño del ícono
-                onPressed: () {},
+                iconSize: 30,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MenuPerfil()),
+                  );
+                },
               ),
+
               IconButton(
                 icon: Image.asset(
                   'assets/images/birrete.png', // Asegúrate de que esta imagen exista en tu carpeta assets

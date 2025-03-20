@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kuki_proyecto/src/login.dart';
+import 'src/login.dart'; // Ensure this path matches the actual file location
 
 void main() {
   runApp(const MainApp());
@@ -12,7 +12,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const LoginScreen(), // Ahora la pantalla inicial es el Login
+      home: const LoginScreen(), // Ensure LoginScreen is implemented correctly
     );
   }
 }
