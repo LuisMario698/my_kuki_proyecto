@@ -7,6 +7,8 @@ import 'package:kuki_proyecto/src/carrito.dart';
 import 'package:kuki_proyecto/src/menu_perfil.dart';
 import 'package:kuki_proyecto/src/menu_principal.dart';
 import 'package:kuki_proyecto/src/menu_vendedor.dart'; // Import necesario para validadores
+import 'package:kuki_proyecto/src/historial_ventas.dart';
+import 'package:kuki_proyecto/src/perfil_vendedor.dart';
 
 class AgregarAVenta extends StatefulWidget {
   const AgregarAVenta({Key? key}) : super(key: key);
@@ -223,42 +225,50 @@ class AgregarAVentaState extends State<AgregarAVenta> {
                 icon: Icon(Icons.home, color: Colors.white),
                 iconSize: 30, // Tamaño del ícono
                 onPressed: () {
-                  MenuPrincipal();
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MenuPrincipal(),
+                    ),
+                  );
                 },
               ),
               IconButton(
-                icon: Icon(Icons.shopping_cart, color: Colors.white),
+                icon: Icon(Icons.history, color: Colors.white),
                 iconSize: 30, // Tamaño del ícono
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Carrito()),
+                    MaterialPageRoute(
+                      builder: (context) => const HistorialVentas(),
+                    ),
                   );
                 },
               ),
               IconButton(
-                icon: Icon(Icons.settings, color: Colors.white),
+                icon: Icon(
+                  Icons.person,
+                  color: Colors.white,
+                ), // Ícono de perfil del vendedor
                 iconSize: 30,
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const MenuPerfil()),
+                    MaterialPageRoute(
+                      builder: (context) => const PerfilVendedor(),
+                    ),
                   );
                 },
               ),
-
               IconButton(
-                icon: Image.asset(
-                  'assets/images/anadir.png', // Ensure this image exists in your assets folder
-                  width: 30,
-                  height: 30,
-                ),
+                icon: Icon(Icons.add_circle, color: Colors.white),
+                iconSize: 30,
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const MenuVentas(),
-                    ), // Navigate to Cursos
+                      builder: (context) => const AgregarAVenta(),
+                    ),
                   );
                 },
               ),
