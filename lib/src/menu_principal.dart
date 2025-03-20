@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:kuki_proyecto/src/busqueda_agricultor.dart';
+import 'package:kuki_proyecto/src/busqueda_ganadera.dart';
+import 'package:kuki_proyecto/src/busqueda_manufactura.dart';
+import 'package:kuki_proyecto/src/busqueda_pesquero.dart';
+import 'package:kuki_proyecto/src/menu_perfil.dart';
+import 'package:kuki_proyecto/src/carrito.dart';
+import 'package:kuki_proyecto/src/cursos.dart';
+import 'package:kuki_proyecto/src/tarjeta_visualizacion.dart';
 
 class MenuPrincipal extends StatefulWidget {
   const MenuPrincipal({Key? key}) : super(key: key);
@@ -14,7 +22,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
       appBar: AppBar(
         backgroundColor: Colors.green,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center, // Centra el título
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.only(
@@ -36,7 +44,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center, // Centra los elementos
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
               decoration: InputDecoration(
@@ -53,7 +61,6 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
             Text(
               'Sectores',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center, // Centra el texto
             ),
             SizedBox(height: 8),
             SingleChildScrollView(
@@ -63,19 +70,40 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                 crossAxisAlignment:
                     CrossAxisAlignment.center, // Centra los sectores
                 children: [
-                  _buildSectorButton('assets/images/ganadero.png', 'Ganadero'),
-                  _buildSectorButton('assets/images/pesquero.png', 'Pesquero'),
+                  _buildSectorButton(
+                    'assets/images/ganadero.png',
+                    'Ganadero',
+                    onPressed: () {
+                      BusquedaGanadera();
+                    },
+                  ),
+                  _buildSectorButton(
+                    'assets/images/pesquero.png',
+                    'Pesquero',
+                    onPressed: () {
+                      BusquedaPesquero();
+                    },
+                  ),
                   _buildSectorButton(
                     'assets/images/construccion.png',
                     'Construcción',
+                    onPressed: () {
+                      BusquedaManufactura();
+                    },
                   ),
                   _buildSectorButton(
                     'assets/images/agricultor.png',
                     'Agricola',
+                    onPressed: () {
+                      BusquedaAgricultor();
+                    },
                   ),
                   _buildSectorButton(
                     'assets/images/panufacturero.png',
                     'Panufacturero',
+                    onPressed: () {
+                      BusquedaManufactura();
+                    },
                   ),
                 ],
               ),
@@ -85,7 +113,6 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
             Text(
               'Recomendaciones',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center, // Centra el texto
             ),
             SizedBox(height: 8),
             SizedBox(
@@ -96,14 +123,23 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                   _buildRecommendationButton(
                     'Concha marina',
                     'Media tonelada de concha marina',
+                    onPressed: () {
+                      TarjetaVisualizacion();
+                    },
                   ),
                   _buildRecommendationButton(
                     'Residuos de madera',
                     '500 kg de madera reciclada',
+                    onPressed: () {
+                      TarjetaVisualizacion();
+                    },
                   ),
                   _buildRecommendationButton(
                     'Plástico reciclado',
                     '300 kg de plástico reciclado',
+                    onPressed: () {
+                      TarjetaVisualizacion();
+                    },
                   ),
                 ],
               ),
@@ -113,7 +149,6 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
             Text(
               'Productos',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center, // Centra el texto
             ),
             SizedBox(height: 8),
             Expanded(
@@ -125,6 +160,9 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                     '\$500',
                     'assets/images/pesquero.png',
                     'assets/images/conchas.jpeg',
+                    onPressed: () {
+                      TarjetaVisualizacion();
+                    },
                   ),
                   _buildProductCard(
                     'Residuos de madera',
@@ -132,6 +170,9 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                     '\$300',
                     'assets/images/construccion.png',
                     'assets/images/madera.jpeg',
+                    onPressed: () {
+                      TarjetaVisualizacion();
+                    },
                   ),
                   _buildProductCard(
                     'Plástico reciclado',
@@ -139,6 +180,9 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                     '\$200',
                     'assets/images/ganadero.png',
                     'assets/images/plasticos.jpeg',
+                    onPressed: () {
+                      TarjetaVisualizacion();
+                    },
                   ),
                 ],
               ),
@@ -157,25 +201,45 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
               IconButton(
                 icon: Icon(Icons.home, color: Colors.white),
                 iconSize: 30, // Tamaño del ícono
-                onPressed: () {},
+                onPressed: () {
+                  MenuPrincipal();
+                },
               ),
               IconButton(
                 icon: Icon(Icons.shopping_cart, color: Colors.white),
                 iconSize: 30, // Tamaño del ícono
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Carrito()),
+                  );
+                },
               ),
               IconButton(
                 icon: Icon(Icons.settings, color: Colors.white),
-                iconSize: 30, // Tamaño del ícono
-                onPressed: () {},
+                iconSize: 30,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MenuPerfil()),
+                  );
+                },
               ),
+
               IconButton(
                 icon: Image.asset(
-                  'assets/images/birrete.png', // Asegúrate de que esta imagen exista en tu carpeta assets
+                  'assets/images/birrete.png', // Ensure this image exists in your assets folder
                   width: 30,
                   height: 30,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Cursos(),
+                    ), // Navigate to Cursos
+                  );
+                },
               ),
             ],
           ),
@@ -184,7 +248,11 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
     );
   }
 
-  Widget _buildSectorButton(String imagePath, String label) {
+  Widget _buildSectorButton(
+    String imagePath,
+    String label, {
+    VoidCallback? onPressed,
+  }) {
     return Column(
       children: [
         IconButton(
@@ -198,21 +266,22 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
             ),
           ),
           iconSize: 65,
-          onPressed: () {},
+          onPressed:
+              onPressed ?? () {}, // Acción predeterminada si no se proporciona
         ),
         SizedBox(height: 5),
-        Text(
-          label,
-          style: TextStyle(fontSize: 12),
-          textAlign: TextAlign.center,
-        ),
+        Text(label, style: TextStyle(fontSize: 12)),
       ],
     );
   }
 
-  Widget _buildRecommendationButton(String title, String description) {
+  Widget _buildRecommendationButton(
+    String title,
+    String description, {
+    VoidCallback? onPressed,
+  }) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onPressed ?? () {}, // Acción predeterminada si no se proporciona
       child: Container(
         width: 200,
         margin: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -231,19 +300,16 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.center, // Centra el contenido
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 title,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                textAlign: TextAlign.center,
               ),
               SizedBox(height: 5),
               Text(
                 description,
                 style: TextStyle(fontSize: 14, color: Colors.grey[600]),
-                textAlign: TextAlign.center,
               ),
             ],
           ),
@@ -257,8 +323,9 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
     String description,
     String price,
     String sectorIconPath,
-    String productImagePath,
-  ) {
+    String productImagePath, {
+    VoidCallback? onPressed,
+  }) {
     return Card(
       margin: EdgeInsets.symmetric(vertical: 8.0),
       elevation: 2,
@@ -266,7 +333,9 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () {},
+            onTap:
+                onPressed ??
+                () {}, // Acción predeterminada si no se proporciona
             child: Image.asset(
               productImagePath,
               width: double.infinity,
@@ -279,11 +348,9 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
             title: Text(
               name,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              textAlign: TextAlign.center,
             ),
             subtitle: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.center, // Centra el contenido
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 5),
                 Text(description, style: TextStyle(fontSize: 14)),
